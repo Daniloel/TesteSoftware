@@ -1,2 +1,2 @@
 # TesteSoftware
-Diretorio dedidcado a teste de  software
+Diretorio dedicado a teste de  software
