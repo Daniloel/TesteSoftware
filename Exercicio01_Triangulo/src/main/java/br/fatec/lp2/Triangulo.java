@@ -5,9 +5,17 @@ public class Triangulo {
 
         if(lado1+lado2 <= lado3 || lado2+lado3 <= lado1 || lado3+lado1 <= lado2 ){
             return "invalido";
+        }else if ((lado1 == lado2 && lado1 !=lado3) || (lado1 == lado3 && lado1 !=lado2) || (lado2 ==lado3 && lado2!=lado1))
+        {
+            return "isosceles";
+        }else if (lado1 == lado2 && lado2 == lado3){
+            return "equilatero";
         }else{
             return "escaleno";
         }
+
+
+
 
     }
 }
