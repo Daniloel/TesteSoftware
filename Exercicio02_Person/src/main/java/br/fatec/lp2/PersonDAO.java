@@ -9,11 +9,11 @@ public class PersonDAO {
     private List<Person> persons = new ArrayList<>();
 
     //Salvar uma pessoa
-    public void save(Person person) {
-        persons.add(person);
-        System.out.println("Pessoa salva: " + person.getName());
-
-    }
+//    public void save(Person person) {
+//        persons.add(person);
+//        System.out.println("Pessoa salva: " + person.getName());
+//
+//    }
 
     // Método para verificar se a pessoa é válida para inclusão
     public List<String> isValidToInclude(Person person) {

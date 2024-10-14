@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class PersonTest {
 
@@ -18,9 +19,10 @@ public class PersonTest {
     }
 
     // Teste para nome válido
+
     @Test
-    public void testNomeValido() {
-        Person person = new Person(1, "Tião Troperio", 62, Arrays.asList(new Email(1, "tiao@email.com")));
+    public void testValidarNome() {
+        Person person = new Person(1, "Tiao Troperio", 62, Arrays.asList(new Email(1, "tiao@email.com")));
         Assert.assertTrue(personDAO.isValidToInclude(person).isEmpty());
     }
 
@@ -78,5 +80,15 @@ public class PersonTest {
     public void testEmailVazio() {
         Person person = new Person(5, "Tiao Souza", 25, Arrays.asList(new Email(5, ""))); // Email vazio
         Assert.assertTrue(personDAO.isValidToInclude(person).contains("O nome do Email deve estar no formato \"___@___.\", com cada parte contendo pelo menos um caractere."));
+    }
+
+    @Test
+    public void testNomeEIdadeInvalidos() {
+        Person person = new Person(7, "Tiao", 0, null);
+        List<String> validacao = personDAO.isValidToInclude(person);
+
+        Assert.assertTrue(validacao.contains("O nome deve ser composto por pelo menos 2 partes e apenas letras."));
+        Assert.assertTrue(validacao.contains("A idade deve estar no intervalo [1, 200]."));
+        Assert.assertTrue(validacao.contains("O objeto Person deve ter pelo menos um objeto da classe Email associado."));
     }
 }
