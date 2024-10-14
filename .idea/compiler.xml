@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Exercicio01_Triangulo" />
+        <module name="Exercicio01_Triangulo (2)" />
+        <module name="Exercicio01_Triangulo (1)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Exercicio01_Triangulo" target="17" />
+      <module name="Exercicio02_Person" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
