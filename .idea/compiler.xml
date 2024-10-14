@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Exercicio01_Triangulo (2)" />
         <module name="Exercicio01_Triangulo (1)" />
+        <module name="Exercicio03_CalculadoraSalario" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
