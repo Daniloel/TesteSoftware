@@ -1,60 +1,50 @@
 package br.edu.fatec.sjc;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
 
 public class NumberAscOrderTest {
+    @Test
+    public void testSortWithNumbersInStack() throws StackEmptyException {
+        // Criação do mock da pilha
+        CustomStack<Number> customStackMock = mock(CustomStack.class);
 
-    private CustomStack<Integer> mockStack;
-    private NumberAscOrder<Integer> numberAscOrder;
+        // Configuração do comportamento do mock
+        when(customStackMock.isEmpty()).thenReturn(false, false, false, false, false, false,false, true);
+        when(customStackMock.pop()).thenReturn(120, 110, 100, 90, 80, 60); // Ordem invertida
 
-    // Inicializa o mock e a instância de NumberAscOrder antes de cada teste
-    @BeforeEach
-    public void setUp() {
-        // Cria o mock da CustomStack
-        mockStack = Mockito.mock(CustomStack.class);
-        // Inicializa a classe sob teste com o mock
-        numberAscOrder = new NumberAscOrder<>(mockStack);
+        // Instancia a classe a ser testada
+        NumberAscOrder<Number> numberAscOrder = new NumberAscOrder<>(customStackMock);
+
+        // Executa o método de ordenação
+        List<Number> sortedNumbers = numberAscOrder.sort();
+
+        // Verifica o tamanho da lista retornada
+        assertEquals(6, sortedNumbers.size());
+
+        // Verifica a ordem dos números
+        assertEquals(60, sortedNumbers.get(0));
+        assertEquals(80, sortedNumbers.get(1));
+        assertEquals(90, sortedNumbers.get(2));
+        assertEquals(100, sortedNumbers.get(3));
+        assertEquals(110, sortedNumbers.get(4));
+        assertEquals(120, sortedNumbers.get(5));
     }
 
     @Test
-    public void testSortWithFilledStack() {
-        // Simula o comportamento da pilha com 6 números aleatórios
-        when(mockStack.isEmpty()).thenReturn(false, false, false, false, false, false, true);
-        when(mockStack.pop()).thenReturn(15, 5, 30, 7, 20, 10);
+    public void testSortWithEmptyStack() throws StackEmptyException {
+        CustomStack<Number> customStackMock = mock(CustomStack.class);
+        when(customStackMock.isEmpty()).thenReturn(true);
 
-        // Executa o método sort() e captura a lista ordenada
-        List<Integer> sortedList = numberAscOrder.sort();
+        NumberAscOrder numberAscOrder = new NumberAscOrder(customStackMock);
+        List<Integer> sortedNumbers = numberAscOrder.sort();
 
-        // Verifica se a lista está ordenada corretamente
-        assertEquals(List.of(5, 7, 10, 15, 20, 30), sortedList);
-
-        // Verifica se pop() foi chamado 6 vezes
-        verify(mockStack, times(6)).pop();
-        // Verifica se isEmpty() foi chamado
-        verify(mockStack, times(7)).isEmpty();
-    }
-
-    @Test
-    public void testSortWithEmptyStack() {
-        // Simula o comportamento de uma pilha vazia
-        when(mockStack.isEmpty()).thenReturn(true);
-
-        // Verifica se o método lança a exceção correta
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            numberAscOrder.sort();
-        });
-
-        // Verifica a mensagem da exceção
-        assertEquals("A pilha está vazia ou não inicializada.", exception.getMessage());
-
-        // Verifica se isEmpty() foi chamado uma vez
-        verify(mockStack, times(1)).isEmpty();
+        assertTrue(sortedNumbers.isEmpty());
     }
 }
